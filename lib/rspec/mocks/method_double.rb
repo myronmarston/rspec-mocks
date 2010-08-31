@@ -1,11 +1,12 @@
 module RSpec
   module Mocks
     class MethodDouble < Hash
-      attr_reader :method_name
+      attr_reader :method_name, :object
 
       def initialize(object, method_name, proxy)
         @method_name = method_name
         @object = object
+        @for_previously_undefined_method = !object.respond_to?(method_name)
         @proxy = proxy
         @stashed = false
         store(:expectations, [])
@@ -30,6 +31,10 @@ module RSpec
         else
           'public'
         end
+      end
+
+      def for_previously_undefined_method?
+        @for_previously_undefined_method
       end
 
       def object_singleton_class

@@ -3,10 +3,10 @@ module RSpec
 
     class BaseExpectation
       attr_reader :sym
-      attr_writer :expected_received_count, :method_block, :expected_from
-      protected :expected_received_count=, :method_block=, :expected_from=
-      attr_accessor :error_generator
-      protected :error_generator, :error_generator=
+      attr_writer :expected_received_count, :method_block
+      protected :expected_received_count=, :method_block=
+      attr_accessor :error_generator, :expected_from
+      protected :error_generator, :error_generator=, :expected_from=
       
       def initialize(error_generator, expectation_ordering, expected_from, sym, method_block, expected_received_count=1, opts={}, &implementation)
         @error_generator = error_generator

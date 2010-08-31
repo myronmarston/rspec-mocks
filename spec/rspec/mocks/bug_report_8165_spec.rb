@@ -14,7 +14,7 @@ describe "An object where respond_to? is true and does not have method" do
 
   it "does not raise an exception for Object" do
     obj = Object.new
-    obj.should_receive(:respond_to?).with(:foobar).and_return(true)
+    obj.should_receive(:respond_to?).with(:foobar).at_least(:once).and_return(true)
     obj.should_receive(:foobar).and_return(:baz)
     obj.respond_to?(:foobar).should be_true
     obj.foobar.should == :baz
@@ -22,7 +22,7 @@ describe "An object where respond_to? is true and does not have method" do
 
   it "does not raise an exception for mock" do
     obj = double("obj")
-    obj.should_receive(:respond_to?).with(:foobar).and_return(true)
+    obj.should_receive(:respond_to?).with(:foobar).at_least(:once).and_return(true)
     obj.should_receive(:foobar).and_return(:baz)
     obj.respond_to?(:foobar).should be_true
     obj.foobar.should == :baz

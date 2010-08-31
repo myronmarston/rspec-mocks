@@ -92,6 +92,12 @@ module RSpec
       end
 
       def message_received(method_name, *args, &block)
+        double = method_double[method_name]
+
+        if !@object.is_a?(RSpec::Mocks::Mock) && double.for_previously_undefined_method?
+          UndefinedMethodDouble.record(double, caller[1])
+        end
+
         expectation = find_matching_expectation(method_name, *args)
         stub = find_matching_method_stub(method_name, *args)
 
